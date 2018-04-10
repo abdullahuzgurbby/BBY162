@@ -1,71 +1,48 @@
-_author_ = "Abdullah UZGUR"
+__author__ = "Abdullah UZGUR"
 
-# Uygulama 05
+#adam asmaca oyunu
 
 import random
 
-sehir = random.choice(["ankara", "çankırı", "tekirdağ", "amasya", "istanbul", "van", "şırnak", "bursa", "şanlıurfa", "gaziantep", "çorum", "çanakkale", "trabzon", "afyonkarahisar"])
-
-harfler = []
-
-kalanhak = 5
-
-altcizgi = "_"
+secilenKelime = random.choice(["çilek", "ıspanak", "marul", "muz", "roka", "ciynak", "ıspanak", "portakal", "mandalina", "üzüm", "kivi"])
+canSayisi = 5
+kelimeler = []
+altCizgi = "_"
 
 
-gosterimyazisi = list(altcizgi * len(sehir))
+for kelime in secilenKelime:
 
-dongu = 1
+    kelimeler.append(altCizgi)
 
+print(kelimeler)
 
-while dongu:
+while canSayisi > 0:
 
-    print(" ".join(gosterimyazisi),"\n") # Aralarında boşluk olacak şekilde kelimenin karakterlerini birleştiriyor.
+    i = 0
 
-    secilenharf = input("Bir harf giriniz: ")
+    girdi = input("\nBir harf giriniz: ").lower()
 
-    try: # try, input ile alınan verinin sayı olup olmadığını kontrol eder.
-        int(secilenharf)
-        print("Doğru bir şeyler girdiğinden emin ol.\n")
-    except: # Except alınan harf 1 den uzun olduğunda hata mesajı verir.
+    if girdi in secilenKelime:
+        for kontrol in secilenKelime:
+            if secilenKelime[i] == girdi:
+                kelimeler[i] = girdi
+            i += 1
 
-        if len(secilenharf) > 1:
-            print("Harf giriniz!\n")
-        else:
+        print("")
+        print(kelimeler)
+        print("\n \"%s\" harfi " %girdi)
 
-            if secilenharf in harfler:
-                print("Bu harfi zaten girildi.\n")
-            else:
+    else:
+        canSayisi -= 1
+        print("")
+        print(kelimeler)
+        print("\n\"%s\" harfi yanlış. Başka harf gir" % girdi)
+        print("\nKalan can sayısı = " + "[" + canSayisi * " ♥ " + "] = " + str(canSayisi))
 
-                bulduk = None
+    if canSayisi == 0:
+        print("Başaramadın! Doğru kelime: %s" %secilenKelime)
+        break
 
-                for i in range(len(sehir)):
-                    # kullanıcının girdiği harf, bulunucak kelimenin "i" nin taşıdığı sayı değerindeki indeksteki harfe eşit ise,
-                    if secilenharf == sehir[i]:
-
-                        bulduk = True
-
-                        gosterimyazisi[i] = secilenharf
-
-                        harfler.append(secilenharf) # Alınan harf, harf havuzuna eklendi.
-
-                        if altcizgi not in gosterimyazisi:
-
-                            print(" ".join(gosterimyazisi)) # Aralarında boşluk olacak şekilde kelimenin karakterlerini birleştiriyor.
-                            print("\nTebrikler doğru kelime!")
-
-                            dongu = 0
-                            # Girilen harf aranan kelime içinde yoksa alttaki kodlar çalıştırılacak.
-                else:
-
-                    if bulduk != True:
-                        kalanhak -= 1
-
-                        print("Yanlış harf. Kalan şansınız: %s\n" %kalanhak)
-
-                        harfler.append(secilenharf) # Alınan harf, harf havuzuna eklendi
-
-                if kalanhak == 0:
-                    print("Kaybettin! Doğru kelime =  %s  \n" %sehir)
-
-                    break
+    if altCizgi not in kelimeler:
+        print("\nTebrikler! Doğru kelimeyi buldun")
+        break
